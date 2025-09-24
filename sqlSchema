@@ -1,0 +1,23 @@
+
+### 3. Configure Database
+1. Open `http://localhost/phpmyadmin` in your browser.  
+2. Create a new database (e.g., `student_club_db`).  
+3. Run the following SQL to create necessary tables:
+
+-- Users Table
+CREATE TABLE user (
+  id int NOT NULL AUTO_INCREMENT,
+  uname varchar(50) DEFAULT NULL,
+  pass varchar(50) DEFAULT NULL,
+  role varchar(10) DEFAULT NULL,
+  PRIMARY KEY (id)
+)
+ CREATE TABLE events (
+  id int NOT NULL AUTO_INCREMENT,
+  title varchar(100) DEFAULT NULL,
+  location varchar(100) DEFAULT NULL,
+  event_date date DEFAULT NULL,
+  event_time time DEFAULT NULL,
+  created_by varchar(50) DEFAULT NULL,
+  PRIMARY KEY (id)
+) 
