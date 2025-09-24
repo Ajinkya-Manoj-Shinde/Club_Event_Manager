@@ -9,9 +9,8 @@ Built to run on **XAMPP** (Apache + MySQL + PHP).
 ## 🚀 Features
 - User **Signup & Login** with session management  
 - Separate dashboards for **Students** and **Clubs**  
-- **Secure authentication** (hashed passwords)  
 - Logout functionality  
-- Scalable database structure (students & clubs)  
+- Scalable database structure (users & events)  
 
 ---
 
@@ -30,7 +29,8 @@ From the XAMPP Control Panel, start **Apache** and **MySQL**.
 ---
 
 ### 2. Clone/Copy Project
-Copy this project folder into the `htdocs` directory of your XAMPP installation.  
+Copy this project folder into the `htdocs` or 'opt' directory according to your operating system.  
 
-Example (Windows):  
+### 3. Setup Database
+Go to localhost/phpmyadmin to create data base and past sql schema from sqlSchema file and change database name in connection files
 
