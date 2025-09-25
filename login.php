@@ -3,8 +3,8 @@ session_start();
 
 // Database connection settings
 $host = "localhost";
-$db_user = "aditya";
-$db_pass = "8767";
+$db_user = "lag";
+$db_pass = "1011";
 $db_name = "users";
 
 // Connect to MySQL
@@ -12,6 +12,8 @@ $conn = new mysqli($host, $db_user, $db_pass, $db_name);
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
+
+$error = "";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $username = trim($_POST['username']);
@@ -24,17 +26,22 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     if ($result->num_rows === 1) {
         $row = $result->fetch_assoc();
-        $_SESSION['username'] = $row['uname'];
-        $_SESSION['role'] = $row['role'];
+        // Check if user is approved
+        if ($row['is_approved'] == 1) {
+            $_SESSION['username'] = $row['uname'];
+            $_SESSION['role'] = $row['role'];
 
-        if ($row['role'] === 'student') {
-            header("Location: studentdashboard.php");
-        } elseif ($row['role'] === 'club') {
-            header("Location: clubdashboard.php");
+            if ($row['role'] === 'student') {
+                header("Location: studentdashboard.php");
+            } elseif ($row['role'] === 'club') {
+                header("Location: clubdashboard.php");
+            } elseif ($row['role'] === 'admin') { // Add an admin role check
+                header("Location: admin_dashboard.php");
+            }
+            exit();
         } else {
-            header("Location: Dashboard.php");
+            $error = "Your account is awaiting admin approval.";
         }
-        exit();
     } else {
         $error = "Invalid username or password!";
     }
@@ -67,7 +74,7 @@ $conn->close();
                         </div>
                         <button type="submit" class="btn btn-primary w-100">Login</button>
                     </form>
-                    <p class="mt-3 text-center">Don't have an account? <a href="signup.php">Sign up</a></p>
+                    <p class="mt-3 text-center">Don't have an account? <a href="signup.php">Sign up here</a></p>
                 </div>
             </div>
         </div>
