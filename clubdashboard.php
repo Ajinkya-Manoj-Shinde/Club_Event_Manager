@@ -8,7 +8,7 @@ if (!isset($_SESSION['username']) || $_SESSION['role'] !== 'club') {
 }
 
 // DB connection
-$conn = new mysqli("localhost", "aditya", "8767", "users");
+$conn = new mysqli("localhost", "lag", "1011", "users");
 if ($conn->connect_error) die("Connection failed: " . $conn->connect_error);
 
 // Handle Event Creation
@@ -59,9 +59,26 @@ $events = $conn->query("SELECT * FROM events WHERE created_by = '" . $_SESSION['
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body class="bg-light">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="index.php">Event Manager</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                         <a href="logout.php" class="btn btn-danger btn-sm">Logout</a>
+                    </li>
+                    
+                </ul>
+            </div>
+        </div>
+    </nav>
 <div class="container mt-4">
-    <h2>Welcome, <?php echo $_SESSION['username']; ?> (Club)</h2>
-    <a href="logout.php" class="btn btn-danger btn-sm">Logout</a>
+    
+    <h2>Welcome <?php echo $_SESSION['username'];?></h2>
+   
 
     <h4 class="mt-4">Create Event</h4>
     <form method="POST" class="card card-body">
@@ -102,14 +119,7 @@ $events = $conn->query("SELECT * FROM events WHERE created_by = '" . $_SESSION['
             <td>
                 <a href="?delete=<?php echo $row['id']; ?>" class="btn btn-danger btn-sm" onclick="return confirm('Delete this event?');">Delete</a>
                 <!-- Simple inline edit form -->
-                <form method="POST" style="display:inline-block;">
-                    <input type="hidden" name="id" value="<?php echo $row['id']; ?>">
-                    <input type="text" name="title" value="<?php echo $row['title']; ?>" required>
-                    <input type="text" name="location" value="<?php echo $row['location']; ?>" required>
-                    <input type="date" name="date" value="<?php echo $row['event_date']; ?>" required>
-                    <input type="time" name="time" value="<?php echo $row['event_time']; ?>" required>
-                    <button type="submit" name="update" class="btn btn-warning btn-sm">Update</button>
-                </form>
+                <a href="edit_event.php?id=<?php echo $row['id']; ?>" class="btn btn-warning btn-sm">Edit</a>
             </td>
         </tr>
         <?php endwhile; ?>
