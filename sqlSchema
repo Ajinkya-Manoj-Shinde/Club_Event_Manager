@@ -5,13 +5,15 @@
 3. Run the following SQL to create necessary tables:
 
 -- Users Table
-CREATE TABLE user (
-  id int NOT NULL AUTO_INCREMENT,
-  uname varchar(50) DEFAULT NULL,
-  pass varchar(50) DEFAULT NULL,
-  role varchar(10) DEFAULT NULL,
-  PRIMARY KEY (id)
-);
+CREATE TABLE `user` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `uname` varchar(50) DEFAULT NULL,
+  `pass` varchar(50) DEFAULT NULL,
+  `role` varchar(10) DEFAULT NULL,
+  `is_approved` tinyint(1) DEFAULT '0',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `uname` (`uname`)
+)
  CREATE TABLE events (
   id int NOT NULL AUTO_INCREMENT,
   title varchar(100) DEFAULT NULL,
